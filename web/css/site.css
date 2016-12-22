@@ -1,0 +1,41 @@
+
+.side-nav {
+    margin-top: 64px;
+}
+#body-container{
+    max-width: 4000px;
+    margin-left: 0.75rem;
+    margin-right: 0.75rem;
+}
+.notification-badge {
+    position: relative;
+    top: -20px;
+    color: #ffffff;
+    background-color: #FF4081;
+    margin: 0 -.8em;
+    border-radius: 50%;
+    padding: 4px 5px;
+}
+#sidebar {
+    -webkit-animation-duration: 1s;
+    -webkit-animation-delay: 0s;
+    -moz-animation-duration: 1s;
+    -moz-animation-delay: 0s;
+
+}
+@media only screen and (max-width : 992px) {
+    header, main, footer {
+        padding-left: 0;
+    }
+}
+#container{
+    margin-top: 0.75rem;
+}
+.page-footer{
+     /*padding-left: 210px;*/
+    margin-right: -0.75rem;
+    margin-left: -0.75rem;
+ }
+.side-nav{
+    width: 16.6666666667%;
+}

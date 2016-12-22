@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link type="text/css" rel="stylesheet" href="{{ asset('css/materialize.min.css') }}" media="screen,projection" />
+        <link type="text/css" rel="stylesheet" href="{{ asset('css/animate.css') }}" media="screen,projection" />
+        <link type="text/css" rel="stylesheet" href="{{ asset('css/site.css') }}" media="screen,projection" />
+        <link type="text/css" rel="stylesheet" href="{{ asset('css/font-awesome.css') }}" media="screen,projection" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+    <div class="navbar-fixed">
+        <nav id="top-bar-menu">
+            <div class="nav-wrapper">
+                <a id="nav-toogle-button" href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
+                <a href="#" class="brand-logo">Logo</a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="sass.html"><i class="fa fa-bell-o fa-lg" aria-hidden="true"></i><span class="notification-badge">1</span></a></li>
+
+
+                    <li><a class="dropdown-button" href="#!" data-beloworigin="true" data-activates="dropdown1"><i class="material-icons">more_vert</i></a><i class="material-icons right">arrow_drop_down</i></a></li>
+                    <li><a href="badges.html">Components</a></li>
+                </ul>
+                <ul id="dropdown1" class="dropdown-content">
+                    <li><a href="#!">one</a></li>
+                    <li><a href="#!">two</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#!">three</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+
+        <div class="row">
+            <div class="col m2 hide-on-small-and-down">
+                <ul id="sidebar" class="side-nav fixed animated bounceInLeft">
+                    <li><a href="#!">First Sidebar Link</a></li>
+                    <li><a href="#!">Second Sidebar Link</a></li>
+                </ul>
+            </div>
+            <div id="container" class="col s12 m10">
+                {% block body %}{% endblock %}
+
+                <footer class="page-footer">
+
+                    <div class="footer-copyright">
+                        <div class="container">
+                            © 2016 Copyright <a href="http://www.santiagopresa.com">Santiago Presa</a>
+                            <a class="grey-text text-lighten-4 right" href="http://www.rubsan.com">Rubsan</a>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="{{ asset('js/materialize.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/site.js') }}"></script>
+    <script>
+
+    </script>
+    {% block javascripts %}{% endblock %}
+    </body>
+</html>
