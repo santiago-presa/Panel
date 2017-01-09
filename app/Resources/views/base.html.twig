@@ -39,8 +39,20 @@
         <div class="row">
             <div class="col m2 hide-on-small-and-down">
                 <ul id="sidebar" class="side-nav fixed animated bounceInLeft">
-                    <li><a href="{{ path('nuevaConbinacion') }}">Añadir Numeros</a></li>
-                    <li><a href="{{ path('consultaLoteria') }}">Consultar numeros</a></li>
+                    <li class="no-padding">
+                        <ul class="collapsible collapsible-accordion">
+
+                            <li>
+                                <a class="collapsible-header {% if 'Loteria' in app.request.attributes.get("_controller") %} active {% endif %}">Loteria<i class="material-icons side-bar-arrow">arrow_drop_down</i></a>
+                                <div class="collapsible-body">
+                                    <ul>
+                                        <li><a href="{{ path('nuevaCombinacion') }}">Añadir Numeros</a></li>
+                                        <li><a href="{{ path('consultaLoteria') }}">Consultar numeros</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <div id="container" class="col s12 m10">

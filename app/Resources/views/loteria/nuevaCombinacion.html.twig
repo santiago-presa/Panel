@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col s9">Números</div>
+        <div class="col s3">Estrellas</div>
+        <div class="input-field col s1">
+            <input id="numero1" type="number" name="numero1" min="1" max="50" class="validate maxLenght2" data-next="numero2">
+            <label for="numero1" data-error="Max 50" data-success=""></label>
+        </div>
+        <div class="input-field col s1">
+            <input id="numero2" type="number" name="numero1" min="1" max="50" class="validate maxLenght2" data-next="numero3">
+            <label for="numero2" data-error="Max 50" data-success=""></label>
+        </div>
+        <div class="input-field col s1">
+            <input id="numero3" type="number" name="numero1" min="1" max="50" class="validate maxLenght2" data-next="numero4">
+            <label for="numero3" data-error="Max 50" data-success=""></label>
+        </div>
+        <div class="input-field col s1">
+            <input id="numero4" type="number" name="numero1" min="1" max="50" class="validate maxLenght2" data-next="numero5">
+            <label for="numero4" data-error="Max 50" data-success=""></label>
+        </div>
+        <div class="input-field col s1">
+            <input id="numero5" type="number" name="numero1" min="1" max="50" class="validate maxLenght2" data-next="estrella1">
+            <label for="numero5" data-error="Max 50" data-success=""></label>
+        </div>
+        <div class="input-field col s1">
+            <input id="estrella1" type="number" name="numero1" min="1" max="50" class="validate maxLenght2" data-next="estrella2">
+            <label for="estrella1" data-error="Max 50" data-success=""></label>
+        </div>
+        <div class="input-field col s1">
+            <input id="estrella2" type="number" name="numero1" min="1" max="50" class="validate maxLenght2" data-next="">
+            <label for="estrella2" data-error="Max 50" data-success=""></label>
+        </div>
+    </div>
+    <div class="row">
+        <table class="bordered responsive-table">
+            <thead>
+            <tr>
+                <th data-field="id">Name</th>
+                <th data-field="name">Item Name</th>
+                <th data-field="price">Item Price</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>Alvin</td>
+                <td>Eclair</td>
+                <td>$0.87</td>
+            </tr>
+            <tr>
+                <td>Alan</td>
+                <td>Jellybean</td>
+                <td>$3.76</td>
+            </tr>
+            <tr>
+                <td>Jonathan</td>
+                <td>Lollipop</td>
+                <td>$7.00</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block javascripts %}
+<script type="application/javascript">
+    $('body').on('keypress','.maxLenght2',function (e) {
+        if($(this).val().length==1 ){
+            $('#' + $(this).attr('data-next')).focus();
+        }
+        if($(this).val().length>1){
+            $(this).val($(this).val().substr(0,1));
+        }
+        if($(this).val())
+
+    })
+</script>
+{% endblock %}

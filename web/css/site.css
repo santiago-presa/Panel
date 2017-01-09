@@ -39,3 +39,7 @@
 .side-nav{
     width: 16.6666666667%;
 }
+.side-bar-arrow{
+    float: right !important;
+    margin-right: 0 !important;
+}
