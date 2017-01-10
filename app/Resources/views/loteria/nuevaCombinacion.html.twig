@@ -2,63 +2,81 @@
 
 {% block body %}
     <div class="row">
-        <div class="col s9">Números</div>
-        <div class="col s3">Estrellas</div>
-        <div class="input-field col s1">
-            <input id="numero1" type="number" name="numero1" min="1" max="50" class="validate maxLenght2" data-next="numero2">
-            <label for="numero1" data-error="Max 50" data-success=""></label>
-        </div>
-        <div class="input-field col s1">
-            <input id="numero2" type="number" name="numero1" min="1" max="50" class="validate maxLenght2" data-next="numero3">
-            <label for="numero2" data-error="Max 50" data-success=""></label>
-        </div>
-        <div class="input-field col s1">
-            <input id="numero3" type="number" name="numero1" min="1" max="50" class="validate maxLenght2" data-next="numero4">
-            <label for="numero3" data-error="Max 50" data-success=""></label>
-        </div>
-        <div class="input-field col s1">
-            <input id="numero4" type="number" name="numero1" min="1" max="50" class="validate maxLenght2" data-next="numero5">
-            <label for="numero4" data-error="Max 50" data-success=""></label>
-        </div>
-        <div class="input-field col s1">
-            <input id="numero5" type="number" name="numero1" min="1" max="50" class="validate maxLenght2" data-next="estrella1">
-            <label for="numero5" data-error="Max 50" data-success=""></label>
-        </div>
-        <div class="input-field col s1">
-            <input id="estrella1" type="number" name="numero1" min="1" max="50" class="validate maxLenght2" data-next="estrella2">
-            <label for="estrella1" data-error="Max 50" data-success=""></label>
-        </div>
-        <div class="input-field col s1">
-            <input id="estrella2" type="number" name="numero1" min="1" max="50" class="validate maxLenght2" data-next="">
-            <label for="estrella2" data-error="Max 50" data-success=""></label>
-        </div>
+        {{ form_start(form,{'attr':{'id': 'anadir'}}) }}
+
+            <div class="col s12 center-align"><h4>Añadir números</h4></div>
+            <div class="col s7">Números</div>
+            <div class="col s5">Estrellas</div>
+            <div class="col s7 row">
+                <div class="input-field col s2">
+                    {{ form_widget(form.numero1, {'attr': {'class': 'border-input validate maxLenght2','min':'1','max':'50', 'data-next': form.numero2.vars.id}}) }}
+                    {{ form_label(form.numero1, 'Numero 1',{'label_attr' : {'data-error' : 'Max 50', 'data-success': '1'}}) }}
+                    {{ form_errors(form.numero1) }}
+                </div>
+                <div class="input-field col s2">
+                    {{ form_widget(form.numero2, {'attr': {'class': 'border-input validate maxLenght2','min':'1','max':'50', 'data-next':form.numero3.vars.id}}) }}
+                    {{ form_label(form.numero2, 'Numero 2',{'label_attr':{'data-error':'Max 50', 'data-success':' '}}) }}
+                    {{ form_errors(form.numero2) }}
+                </div>
+                <div class="input-field col s2">
+                    {{ form_widget(form.numero3, {'attr': {'class': 'border-input validate maxLenght2','min':'1','max':'50', 'data-next':form.numero4.vars.id}}) }}
+                    {{ form_label(form.numero3, 'Numero 3',{'label_attr':{'data-error':'Max 50', 'data-success':' '}}) }}
+                    {{ form_errors(form.numero3) }}
+                </div>
+                <div class="input-field col s2">
+                    {{ form_widget(form.numero4, {'attr': {'class': 'border-input validate maxLenght2','min':'1','max':'50', 'data-next':form.numero5.vars.id}}) }}
+                    {{ form_label(form.numero4, 'Numero 4',{'label_attr':{'data-error':'Max 50', 'data-success':' '}}) }}
+                    {{ form_errors(form.numero4) }}
+
+                </div>
+                <div class="input-field col s2">
+                    {{ form_widget(form.numero5, {'attr': {'class': 'border-input validate maxLenght2','min':'1','max':'50', 'data-next':form.estrella1.vars.id}}) }}
+                    {{ form_label(form.numero5, 'Numero 5',{'label_attr':{'data-error':'Max 50', 'data-success':' '}}) }}
+                    {{ form_errors(form.numero5) }}
+                </div>
+            </div>
+            <div class="col s3 row">
+                <div class="input-field col s6">
+                    {{ form_widget(form.estrella1, {'attr': {'class': 'border-input validate estrella','min':'1','max':'12', 'data-next':form.estrella2.vars.id}}) }}
+                    {{ form_label(form.estrella1, 'Estrella 1',{'label_attr':{'data-error':'Max 12', 'data-success':' '}}) }}
+                    {{ form_errors(form.estrella1) }}
+                </div>
+                <div class="input-field col s6">
+                    {{ form_widget(form.estrella2, {'attr': {'class': 'border-input validate estrella','min':'1','max':'12', 'data-next':''}}) }}
+                    {{ form_label(form.estrella2, 'Estrella 2',{'label_attr':{'data-error':'Max 12', 'data-success':' '}}) }}
+                    {{ form_errors(form.estrella2) }}
+                </div>
+            </div>
+            <div class="col s2">
+                <button class="btn waves-effect waves-light" type="submit" name="action"><span class="hide-on-med-and-down">Añadir</span>
+                    <i class="material-icons right">add</i>
+                </button>
+            </div>
+
+        {{ form_end(form) }}
     </div>
     <div class="row">
+        <div class="col s12 center-align"><h4>Números insertados</h4></div>
+        <div class="col s2">
+            <button id="actualizar-lista" class="btn waves-effect waves-light"><span class="hide-on-med-and-down">Actualizar</span>
+                <i class="material-icons right">loop</i>
+            </button>
+        </div>
         <table class="bordered responsive-table">
             <thead>
             <tr>
-                <th data-field="id">Name</th>
-                <th data-field="name">Item Name</th>
-                <th data-field="price">Item Price</th>
+                <th data-field="numero1">Número 1</th>
+                <th data-field="numero2">Número 2</th>
+                <th data-field="numero3">Número 3</th>
+                <th data-field="numero4">Número 4</th>
+                <th data-field="numero5">Número 5</th>
+                <th data-field="estrella1">Estrella 1</th>
+                <th data-field="estrella2">Estrella 2</th>
+                <th data-field="acciones"></th>
             </tr>
             </thead>
 
-            <tbody>
-            <tr>
-                <td>Alvin</td>
-                <td>Eclair</td>
-                <td>$0.87</td>
-            </tr>
-            <tr>
-                <td>Alan</td>
-                <td>Jellybean</td>
-                <td>$3.76</td>
-            </tr>
-            <tr>
-                <td>Jonathan</td>
-                <td>Lollipop</td>
-                <td>$7.00</td>
-            </tr>
+            <tbody id="resultados-numeros-loteria">
             </tbody>
         </table>
     </div>
@@ -70,15 +88,70 @@
 
 {% block javascripts %}
 <script type="application/javascript">
-    $('body').on('keypress','.maxLenght2',function (e) {
-        if($(this).val().length==1 ){
+    $(document).ready(function () {
+        $('#actualizar-lista').trigger('click');
+    });
+    $('body').on('keyup','.maxLenght2',function (e) {
+        if($(this).val().length>=2 ){
             $('#' + $(this).attr('data-next')).focus();
         }
-        if($(this).val().length>1){
-            $(this).val($(this).val().substr(0,1));
+        if($(this).val().length>2){
+            $(this).val($(this).val().substr(0,2));
         }
-        if($(this).val())
+        if($(this).val()>50){
+            $(this).val(50);
+            $(this).trigger('change');
+        }
 
+    })
+    $('body').on('keyup','.estrella',function (e) {
+        if($(this).val().length==2 && $(this).attr('data-next')!=""){
+            $('#' + $(this).attr('data-next')).focus();
+        }
+        if($(this).val().length>2){
+            $(this).val($(this).val().substr(0,2));
+        }
+        if($(this).val()>12){
+            $(this).val(12);
+            $(this).trigger('change');
+        }
+
+    });
+    $('#actualizar-lista').on('click',function (e) {
+        e.preventDefault();
+        var succes = function (data) {
+
+            $('#resultados-numeros-loteria').html(data);
+        };
+        var error = function () {
+
+        };
+        $.ajax({
+            type: "POST",
+            url: "{{ path('refrescarResultados') }}",
+            data: 1,
+            success: succes,
+            error: error,
+        });
+    });
+    $('#anadir').on('submit',function (e) {
+        e.preventDefault();
+        var succes = function () {
+            Materialize.toast('Añadido correctamente', 4000,'card-panel teal accent-3');
+            $('#actualizar-lista').trigger('click');
+        };
+        var error = function () {
+            Materialize.toast('No se ha podido añadir intentelo de nuevo', 4000,'card-panel deep-orange accent-3');
+
+            $('#actualizar-lista').trigger('click');
+        };
+        $.ajax({
+            type: "POST",
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            success: succes,
+            error: error,
+        });
     })
 </script>
 {% endblock %}

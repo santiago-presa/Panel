@@ -14,8 +14,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Table(name="NumerosLoteria")
- * @UniqueEntity(fields="email", message="Email already taken")
- * @UniqueEntity(fields="username", message="Username already taken")
  * @ORM\Entity
  */
 class NumeroLoteria implements \Serializable
@@ -30,37 +28,80 @@ class NumeroLoteria implements \Serializable
     /**
      * @ORM\Column(type="smallint")
      * @Assert\NotBlank()
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 50,
+     *      minMessage = "Debe ser mayor que {{ limit }}",
+     *      maxMessage = "Debe ser menor que {{ limit }}"
+     * )
       */
     private $numero1;
 
     /**
      * @ORM\Column(type="smallint")
      * @Assert\NotBlank()
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 50,
+     *      minMessage = "Debe ser mayor que {{ limit }}",
+     *      maxMessage = "Debe ser menor que {{ limit }}"
+     * )
+     *
      */
     private $numero2;
     /**
      * @ORM\Column(type="smallint")
      * @Assert\NotBlank()
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 50,
+     *      minMessage = "Debe ser mayor que {{ limit }}",
+     *      maxMessage = "Debe ser menor que {{ limit }}"
+     * )
      */
     private $numero3;
     /**
      * @ORM\Column(type="smallint")
      * @Assert\NotBlank()
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 50,
+     *      minMessage = "Debe ser mayor que {{ limit }}",
+     *      maxMessage = "Debe ser menor que {{ limit }}"
+     * )
      */
     private $numero4;
     /**
      * @ORM\Column(type="smallint")
      * @Assert\NotBlank()
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 50,
+     *      minMessage = "Debe ser mayor que {{ limit }}",
+     *      maxMessage = "Debe ser menor que {{ limit }}"
+     * )
      */
     private $numero5;
     /**
      * @ORM\Column(type="smallint")
      * @Assert\NotBlank()
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 12,
+     *      minMessage = "Debe ser mayor que {{ limit }}",
+     *      maxMessage = "Debe ser menor que {{ limit }}"
+     * )
      */
     private $estrella1;
     /**
      * @ORM\Column(type="smallint")
      * @Assert\NotBlank()
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 13,
+     *      minMessage = "Debe ser mayor que {{ limit }}",
+     *      maxMessage = "Debe ser menor que {{ limit }}"
+     * )
      */
     private $estrella2;
 
