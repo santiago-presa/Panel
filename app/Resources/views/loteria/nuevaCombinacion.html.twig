@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
-
+{% trans_default_domain "messages" %}
 {% block body %}
     <div class="row">
         {{ form_start(form,{'attr':{'id': 'anadir'}}) }}
 
-            <div class="col s12 center-align"><h4>Añadir números</h4></div>
-            <div class="col s7">Números</div>
-            <div class="col s5">Estrellas</div>
+            <div class="col s12 center-align"><h4>{{ 'AnadirNumeros'|trans }}</h4></div>
+            <div class="col s7">{{ 'Numeros'|trans }}</div>
+            <div class="col s5">{{ 'Estrella'|trans }}</div>
             <div class="col s7 row">
                 <div class="input-field col s2">
                     {{ form_widget(form.numero1, {'attr': {'class': 'border-input validate maxLenght2','min':'1','max':'50', 'data-next': form.numero2.vars.id}}) }}
@@ -47,8 +47,8 @@
                     {{ form_errors(form.estrella2) }}
                 </div>
             </div>
-            <div class="col s2">
-                <button class="btn waves-effect waves-light" type="submit" name="action"><span class="hide-on-med-and-down">Añadir</span>
+            <div class="col s2 inLine-button">
+                <button class="btn waves-effect waves-light" type="submit" name="action"><span class="hide-on-med-and-down">{{ 'Anadir'|trans }}</span>
                     <i class="material-icons right">add</i>
                 </button>
             </div>
@@ -56,29 +56,16 @@
         {{ form_end(form) }}
     </div>
     <div class="row">
-        <div class="col s12 center-align"><h4>Números insertados</h4></div>
+        <div class="col s12 center-align"><h4>{{ 'NumerosInsertados'|trans }} <span id="count-resultados" class="">({{ cantidadResultados }})</span></h4></div>
         <div class="col s2">
-            <button id="actualizar-lista" class="btn waves-effect waves-light"><span class="hide-on-med-and-down">Actualizar</span>
+            <button id="actualizar-lista" class="btn waves-effect waves-light"><span class="hide-on-med-and-down">{{ 'Actualizar'|trans }}</span>
                 <i class="material-icons right">loop</i>
             </button>
         </div>
-        <table class="bordered responsive-table">
-            <thead>
-            <tr>
-                <th data-field="numero1">Número 1</th>
-                <th data-field="numero2">Número 2</th>
-                <th data-field="numero3">Número 3</th>
-                <th data-field="numero4">Número 4</th>
-                <th data-field="numero5">Número 5</th>
-                <th data-field="estrella1">Estrella 1</th>
-                <th data-field="estrella2">Estrella 2</th>
-                <th data-field="acciones"></th>
-            </tr>
-            </thead>
+        <div id="resultados-numeros-loteria" class="col s12">
+        {%  include ':loteria:refrescarResultados.html.twig' with {'listaProducts': resultados, 'cantidadResultas': cantidadResultados, 'numPagina': numPagina} %}
+        </div>
 
-            <tbody id="resultados-numeros-loteria">
-            </tbody>
-        </table>
     </div>
 {% endblock %}
 
@@ -89,9 +76,9 @@
 {% block javascripts %}
 <script type="application/javascript">
     $(document).ready(function () {
-        $('#actualizar-lista').trigger('click');
+//        $('#actualizar-lista').trigger('click');
     });
-    $('body').on('keyup','.maxLenght2',function (e) {
+    $("body").on('keyup','.maxLenght2',function (e) {
         if($(this).val().length>=2 ){
             $('#' + $(this).attr('data-next')).focus();
         }
@@ -122,35 +109,39 @@
         var succes = function (data) {
 
             $('#resultados-numeros-loteria').html(data);
+            $('#count-resultados').html('('+$('#resultados-numeros-loteria').find('#resultados-totales').html()+')');
+
         };
         var error = function () {
 
         };
+        //noinspection JSUnresolvedFunction
         $.ajax({
             type: "POST",
             url: "{{ path('refrescarResultados') }}",
             data: 1,
             success: succes,
-            error: error,
+            error: error
         });
     });
     $('#anadir').on('submit',function (e) {
         e.preventDefault();
         var succes = function () {
-            Materialize.toast('Añadido correctamente', 4000,'card-panel teal accent-3');
-            $('#actualizar-lista').trigger('click');
+            Materialize.toast('{{ 'AnadidoCorrectamente'|trans }}', 4000,'card-panel teal accent-3');
+            $("#actualizar-lista").trigger('click');
         };
         var error = function () {
-            Materialize.toast('No se ha podido añadir intentelo de nuevo', 4000,'card-panel deep-orange accent-3');
+            Materialize.toast('{{ 'ErrorAnadir'|trans }}', 4000,'card-panel deep-orange accent-3');
 
             $('#actualizar-lista').trigger('click');
         };
+        //noinspection JSUnresolvedFunction
         $.ajax({
             type: "POST",
             url: $(this).attr('action'),
             data: $(this).serialize(),
             success: succes,
-            error: error,
+            error: error
         });
     })
 </script>

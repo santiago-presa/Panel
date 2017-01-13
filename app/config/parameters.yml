@@ -10,3 +10,5 @@ parameters:
     mailer_user: null
     mailer_password: null
     secret: 3d3e16798cccb9b4fe17004249199b7276182696
+    locale: es|en
+    items_pagina: 5
