@@ -1,6 +1,12 @@
-
-.side-nav {
-    margin-top: 64px;
+.row{
+    margin-bottom: 0px;
+}
+.side-nav.fixed {
+    top: inherit;
+    width: inherit;
+}
+.inLine-button{
+    line-height: 70px;
 }
 #body-container{
     max-width: 4000px;
@@ -39,6 +45,7 @@
 .side-nav{
     width: 16.6666666667%;
 }
+
 .side-bar-arrow{
     float: right !important;
     margin-right: 0 !important;

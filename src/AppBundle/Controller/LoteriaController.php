@@ -45,8 +45,13 @@ class LoteriaController extends Controller
             return $this->json('ok');
         }
 
+        $repository = $this->getDoctrine()->getRepository('AppBundle:NumeroLoteria');
+        $query=$repository->createQueryBuilder('NL')->orderBy('NL.id', 'DESC')->getQuery();
+        $c = count($query->getResult());
+        $resultados = $query->setFirstResult(0)->setMaxResults($this->container->getParameter('items_pagina'))->getResult();
+
         // replace this example code with whatever you need
-        return $this->render('loteria/nuevaCombinacion.html.twig', array( 'form' => $form->createView(),)
+        return $this->render('loteria/nuevaCombinacion.html.twig', array( 'form' => $form->createView(),'resultados' => $resultados,'cantidadResultados' => $c,'numPagina' => 1)
          );
     }
     /**
@@ -56,10 +61,27 @@ class LoteriaController extends Controller
      */
     public function refrescarResultados(Request $request)
     {
+        $logger = $this->get('logger');
+        $logger->info('I just got the logger');
+//        $logger->error('An error occurred');
+//
+//        $logger->critical('I left the oven on!', array(
+//            // include extra "context" info in your logs
+//            'cause' => 'in_hurry',
+//        ));
+        $numPagina=1;
+    if($request->request->has('numPagina')){
+        $numPagina=$request->request->get('numPagina');
+    }
+    $firstResult=($numPagina-1)* $this->container->getParameter('items_pagina');
         $repository = $this->getDoctrine()->getRepository('AppBundle:NumeroLoteria');
-        $products = $repository->findAll();
+        $query=$repository->createQueryBuilder('NL')->orderBy('NL.id', 'DESC')->getQuery();
+        $c = count($query->getResult());
+        $products = $query->setFirstResult($firstResult)->setMaxResults($this->container->getParameter('items_pagina'))->getResult();
+
+        // replace this example code with wha
         // replace this example code with whatever you need
-        return $this->render('loteria/refrescarResultados.html.twig', array( 'listaProducts' => $products,)
+        return $this->render('loteria/refrescarResultados.html.twig', array( 'listaProducts' => $products,'cantidadResultados' => $c,'numPagina' => $numPagina)
         );
     }
     /**
@@ -70,7 +92,7 @@ class LoteriaController extends Controller
     public function consultaLoteriaAction(Request $request)
     {
         // replace this example code with whatever you need
-        return $this->render('shared/index.html.twig', [
+        return $this->render('loteria/consultarResultados.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
         ]);
     }

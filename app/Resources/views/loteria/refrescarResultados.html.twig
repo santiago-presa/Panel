@@ -1,3 +1,39 @@
+{%
+    set paginas=(cantidadResultados/items_pagina)|round(0,'ceil') %}
+<form id="formPaginacion">
+    <input id="numPagina" type="hidden" name="numPagina">
+</form>
+<span class="hide" id="resultados-totales">{{ cantidadResultados }}</span>
+<ul class="pagination" data-href="{{ path('refrescarResultados') }}" data-success="resultados-numeros-loteria" data-form="formPaginacion">
+    {% if(numPagina>1) %}
+    <li class="waves-effect pagination-page pagination-before"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+    {% endif %}
+    {% for i in 1..paginas %}
+        {% if(numPagina==i) %}
+            <li class="waves-effect pagination-page active"><a href="#!">{{ i }}</a></li>
+        {% else %}
+            <li class="waves-effect pagination-page"><a href="#!">{{ i }}</a></li>
+        {% endif %}
+    {% endfor %}
+    {% if(numPagina<paginas) %}
+    <li class="waves-effect pagination-page pagination-next"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+    {% endif %}
+</ul>
+<table class="bordered responsive-table">
+    <thead>
+    <tr>
+        <th data-field="numero1">{{ 'Numero1'|trans }}</th>
+        <th data-field="numero2">{{ 'Numero2'|trans }}</th>
+        <th data-field="numero3">{{ 'Numero3'|trans }}</th>
+        <th data-field="numero4">{{ 'Numero4'|trans }}</th>
+        <th data-field="numero5">{{ 'Numero5'|trans }}</th>
+        <th data-field="estrella1">{{ 'Estrella1'|trans }}</th>
+        <th data-field="estrella2">{{ 'Estrella2'|trans }}</th>
+        <th data-field="acciones"></th>
+    </tr>
+    </thead>
+
+    <tbody >
 {%  if(listaProducts != null) %}
     {%  for product in listaProducts %}
         <tr>
@@ -12,3 +48,21 @@
         </tr>
     {% endfor %}
 {% endif %}
+
+    </tbody>
+</table>
+<ul class="pagination" data-href="{{ path('refrescarResultados') }}" data-success="resultados-numeros-loteria" data-form="formPaginacion">
+    {% if(numPagina>1) %}
+        <li class="waves-effect pagination-page pagination-before"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+    {% endif %}
+    {% for i in 1..paginas %}
+        {% if(numPagina==i) %}
+            <li class="waves-effect pagination-page active"><a href="#!">{{ i }}</a></li>
+        {% else %}
+            <li class="waves-effect pagination-page"><a href="#!">{{ i }}</a></li>
+        {% endif %}
+    {% endfor %}
+    {% if(numPagina<paginas) %}
+        <li class="waves-effect pagination-page pagination-next"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+    {% endif %}
+</ul>
