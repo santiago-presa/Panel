@@ -54,6 +54,7 @@
             </div>
 
         {{ form_end(form) }}
+        <div id="error" class="red-text text-accent-4 hide col s12"></div>
     </div>
     <div class="row">
         <div class="col s12 center-align"><h4>{{ 'NumerosInsertados'|trans }} <span id="count-resultados" class="">({{ cantidadResultados }})</span></h4></div>
@@ -104,6 +105,29 @@
         }
 
     });
+    $('body').on('click','.borrarCombinacion',function () {
+        var succes = function (data) {
+            if(data == 'ok') {
+                Materialize.toast('{{ 'EliminadoCorrectamente'|trans }}', 4000, 'card-panel teal accent-3');
+            }else{
+                Materialize.toast('{{ 'ErrorEliminar'|trans }}', 4000,'card-panel deep-orange accent-3');
+            }
+                $("#actualizar-lista").trigger('click');
+
+        };
+        var error = function (err) {
+            Materialize.toast('{{ 'ErrorEliminar'|trans }}', 4000,'card-panel deep-orange accent-3');
+            $('#actualizar-lista').trigger('click');
+        };
+        //noinspection JSUnresolvedFunction
+        $.ajax({
+            type: "POST",
+            url: "{{ path('eliminarCombinacion') }}",
+            data: {idCombiacion:$(this).attr('data-id')},
+            success: succes,
+            error: error
+        });
+    });
     $('#actualizar-lista').on('click',function (e) {
         e.preventDefault();
         var succes = function (data) {
@@ -126,13 +150,20 @@
     });
     $('#anadir').on('submit',function (e) {
         e.preventDefault();
-        var succes = function () {
-            Materialize.toast('{{ 'AnadidoCorrectamente'|trans }}', 4000,'card-panel teal accent-3');
-            $("#actualizar-lista").trigger('click');
-        };
-        var error = function () {
-            Materialize.toast('{{ 'ErrorAnadir'|trans }}', 4000,'card-panel deep-orange accent-3');
+        var succes = function (data) {
 
+            if(data == "ok") {
+                $('#error').addClass('hide').html('');
+                Materialize.toast('{{ 'AnadidoCorrectamente'|trans }}', 4000, 'card-panel teal accent-3');
+                $("#actualizar-lista").trigger('click');
+            }else{
+                Materialize.toast('{{ 'combinacionExistente'|trans }}', 4000, 'card-panel teal accent-3');
+                $('#error').html(data).removeClass('hide');
+            }
+        };
+        var error = function (err) {
+            Materialize.toast('{{ 'ErrorAnadir'|trans }}', 4000,'card-panel deep-orange accent-3');
+            $('#error').html(err.responseText).removeClass('hide');
             $('#actualizar-lista').trigger('click');
         };
         //noinspection JSUnresolvedFunction

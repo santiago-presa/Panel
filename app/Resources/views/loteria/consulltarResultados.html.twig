@@ -1,0 +1,32 @@
+<table class="bordered responsive-table">
+    <thead>
+    <tr>
+        <th data-field="numero1">{{ 'Numero1'|trans }}</th>
+        <th data-field="numero2">{{ 'Numero2'|trans }}</th>
+        <th data-field="numero3">{{ 'Numero3'|trans }}</th>
+        <th data-field="numero4">{{ 'Numero4'|trans }}</th>
+        <th data-field="numero5">{{ 'Numero5'|trans }}</th>
+        <th data-field="estrella1">{{ 'Estrella1'|trans }}</th>
+        <th data-field="estrella2">{{ 'Estrella2'|trans }}</th>
+        <th data-field="acciones"></th>
+    </tr>
+    </thead>
+
+    <tbody >
+{%  if(listaProducts != null) %}
+    {%  for product in listaProducts %}
+        <tr>
+            <td>{{  product.numero1 }}</td>
+            <td>{{  product.numero2 }}</td>
+            <td>{{  product.numero3 }}</td>
+            <td>{{  product.numero4 }}</td>
+            <td>{{  product.numero5 }}</td>
+            <td>{{  product.estrella1 }}</td>
+            <td>{{  product.estrella2 }}</td>
+            <td class="waves-effect waves-light btn borrarCombinacion" data-id="{{  product.id }}"><i class="material-icons">delete</i></td>
+        </tr>
+    {% endfor %}
+{% endif %}
+
+    </tbody>
+</table>

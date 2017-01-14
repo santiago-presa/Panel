@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain "messages" %}
+{% block body %}
+    <div class="row">
+    <div class="col s12 center-align"><h4>{{ 'ConsultarNumeros'|trans }}</h4></div>
+     <div class="col s12">
+         <div class="col s10">{{ 'Los'|trans }}<input id="" type="number" class="validate width-auto">
+             <label for="number" data-error="Solo numero" data-success=""></label>{{ 'numerosMasSalidos'|trans }}</div>
+         <div class="col s2">
+             <button id="actualizar-lista" class="btn waves-effect waves-light consultar-combinacion"  data-find="masVeces"><span class="hide-on-med-and-down">{{ 'Consultar'|trans }}</span>
+                 <i class="material-icons right">search</i>
+             </button>
+         </div>
+     </div>
+     <div class="col s12">
+         <div class="col s10">{{ 'Los'|trans }} <input id="" type="number" class="validate width-auto">
+             <label for="number" data-error="Solo numero" data-success=""></label>{{ 'numerosmenosSalidos'|trans }}</div>
+         <div class="col s2">
+             <button id="actualizar-lista" class="btn waves-effect waves-light consultar-combinacion" data-find="menosVeces"><span class="hide-on-med-and-down">{{ 'Consultar'|trans }}</span>
+                 <i class="material-icons right">search</i>
+             </button>
+         </div>
+     </div>
+     <div class="col s12">
+         <div class="col s10">{{ 'consultarNumeroVeces'|trans }}</div>
+         <div class="col s2">
+             <button id="actualizar-lista" class="btn waves-effect waves-light consultar-combinacion" data-find="numVeces"><span class="hide-on-med-and-down">{{ 'Consultar'|trans }}</span>
+                 <i class="material-icons right">search</i>
+             </button>
+         </div>
+     </div>
+    </div>
+    <div class="row">
+        <div class="col s12 center-align"><h4>{{ 'Resultados'|trans }}</h4></div>
+        <div id="resultados-consultas" class="col s12">
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block javascripts %}
+    <script type="application/javascript">
+        $(document).ready(function () {
+//        $('#actualizar-lista').trigger('click');
+        });
+
+        $('.consultar-combinacion').on('click',function (e) {
+            e.preventDefault();
+            var succes = function (data) {
+
+                $('#resultados-consultas').html(data);
+
+
+            };
+            var error = function () {
+                $('#resultados-consultas').html("{{ 'errorConsultar'|trans }}");
+            };
+            //noinspection JSUnresolvedFunction
+            $.ajax({
+                type: "POST",
+                url: "{{ path('consultarCombinaciones') }}",
+                data: { filtro: $(this).attr('data-find') , cantidadNumeros:$(this).closest('.col .s12').find('input').val()},
+                success: succes,
+                error: error
+            });
+        });
+
+
+    </script>
+{% endblock %}

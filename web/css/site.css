@@ -8,6 +8,10 @@
 .inLine-button{
     line-height: 70px;
 }
+input.width-auto{
+    width: auto;
+    text-align: center;
+}
 #body-container{
     max-width: 4000px;
     margin-left: 0.75rem;

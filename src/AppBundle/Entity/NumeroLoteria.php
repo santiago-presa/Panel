@@ -104,7 +104,28 @@ class NumeroLoteria implements \Serializable
      * )
      */
     private $estrella2;
+    /**
+     * @ORM\Column(type="smallint",nullable=true)
+     *
+     * @Assert\Blank()
+     */
+    private $numVeces;
 
+    /**
+     * @return mixed
+     */
+    public function getNumVeces()
+    {
+        return $this->numVeces;
+    }
+
+    /**
+     * @param mixed $numVeces
+     */
+    public function setNumVeces($numVeces)
+    {
+        $this->numVeces = $numVeces;
+    }
     /**
      * @return mixed
      */
@@ -238,6 +259,19 @@ class NumeroLoteria implements \Serializable
         // may not be needed, see section on salt below
         // $this->salt = md5(uniqid(null, true));
     }
+    public function crear($numero1,$numero2,$numero3,$numero4,$numero5,$estrella1,$estrella2)
+    {
+            $this->numero1=$numero1;
+            $this->numero2=$numero2;
+            $this->numero3=$numero3;
+            $this->numero4=$numero4;
+            $this->numero5=$numero5;
+            $this->estrella1=$estrella1;
+            $this->estrella2=$estrella2;
+        // $this->isActive = true;
+        // may not be needed, see section on salt below
+        // $this->salt = md5(uniqid(null, true));
+    }
 
 
     /** @see \Serializable::serialize() */
@@ -256,7 +290,9 @@ class NumeroLoteria implements \Serializable
             // $this->salt,
         ));
     }
-
+    public function print(){
+        return $this->numero1." - ".$this->numero2." - ".$this->numero3." - ".$this->numero4." - ".$this->numero5." - ".$this->estrella1." - ".$this->estrella2;
+    }
     /** @see \Serializable::unserialize() */
     public function unserialize($serialized)
     {

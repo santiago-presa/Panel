@@ -1,0 +1,32 @@
+<div class="col s6"><h5>{{ 'FrecuenciaNumero'|trans }}</h5></div>
+<div class="col s6"><h5>{{ 'FrecuenciaEstrellas'|trans }}</h5></div>
+<div class="col s12">
+<table class="bordered responsive-table">
+    <thead>
+    <tr>
+        <th data-field="Numero">{{ 'Numero'|trans }}</th>
+        <th data-field="Frecuencia">{{ 'Frecuencia'|trans }}</th>
+        <th data-field="UltimoSorteo">{{ 'UltimoSorteo'|trans }}</th>
+        <th data-field="Estrella">{{ 'Estrella'|trans }}</th>
+        <th data-field="Frecuencia">{{ 'Frecuencia'|trans }}</th>
+        <th data-field="UltimoSorteo">{{ 'UltimoSorteo'|trans }}</th>
+    </tr>
+    </thead>
+
+    <tbody >
+{%  if(listaProducts != null) %}
+    {%  for product in listaProducts %}
+        <tr>
+            <td>{{  product.numero1 }}</td>
+            <td>{{  product.numero2 }}</td>
+            <td>{{  product.numero3 }}</td>
+            <td>{{  product.numero4 }}</td>
+            <td>{{  product.numero5 }}</td>
+            <td>{{  product.estrella1 }}</td>
+        </tr>
+    {% endfor %}
+{% endif %}
+
+    </tbody>
+</table>
+</div>
