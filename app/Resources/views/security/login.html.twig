@@ -1,24 +1,86 @@
 {# app/Resources/views/security/login.html.twig #}
 {# ... you will probably extend your base template, like base.html.twig #}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/materialize.min.css') }}" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/animate.css') }}" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/font-awesome.css') }}" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/login.css') }}" media="screen,projection" />
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
 
 {% if error %}
     <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 {% endif %}
+<div class="container">
+<div class="row">
+    <div id="login" class="col s8 offset-s2">
+        <div class="col s12 z-depth-4 card-panel login-form">
+        <form action="{{ path('login') }}" method="post" class="col s12">
+            <div class="row">
+                <div class="input-field col s12 center margin-bottom">
+                    <img src="{{ asset('img/logo.png') }}" alt="" class="circle responsive-img valign profile-image-login">
+                    <p class="center login-form-text">Santiago Presa</p>
+                </div>
 
-<form action="{{ path('login') }}" method="post">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="_username" value="{{ last_username }}" />
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">perm_identity</i>
+                        <input id="username" name="_username" value="" type="text" >
+                        <label for="username" class="center-align" >Username</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">lock_outline</i>
+                        <input id="password" type="password" name="_password">
+                        <label for="password" class="center-align" >Password</label>
+                    </div>
+                    <div class="input-field col s12 center">
+                        <input type="checkbox" class="filled-in" id="remember_me" name="_remember_me" checked />
+                        <label for="remember_me">Recordar</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <button type="submit" class="btn waves-effect waves-light col s12">Contectarse</button>
+                    </div>
+                {#  <label for="username">Username:</label>
+                <input type="text" id="username" name="_username" value="{{ last_username }}" />
 
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="_password" />
-    <input type="checkbox" id="remember_me" name="_remember_me" checked />
-    <label for="remember_me">Keep me logged in</label>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="_password" />
+                <input type="checkbox" id="remember_me" name="_remember_me" checked />
+                <label for="remember_me">Keep me logged in</label>
 
-    {#
-        If you want to control the URL the user
-        is redirected to on success (more details below)
-        <input type="hidden" name="_target_path" value="/account" />
-    #}
 
-    <button type="submit">login</button>
-</form>
+                    If you want to control the URL the user
+                    is redirected to on success (more details below)
+                    <input type="hidden" name="_target_path" value="/account" />
+                          <button type="submit">login</button>
+                #}
+
+
+            </div>
+        </form>
+
+        </div>
+    </div>
+</div>
+</div>
+
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="{{ asset('js/materialize.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/site.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.blockUI.js') }}"></script>
+<script>
+    $.blockUI.defaults.message = '<div class="clear-loading loading-effect-1"><span></span><span></span><span></span></div>'+'<div class="fountainTextGG"><div class="fountainTextG_1 fountainTextG">C</div><div class="fountainTextG_2 fountainTextG">a</div><div class="fountainTextG_3 fountainTextG">r</div><div class="fountainTextG_4 fountainTextG">g</div><div class="fountainTextG_5 fountainTextG">a</div><div class="fountainTextG_6 fountainTextG">n</div><div class="fountainTextG_7 fountainTextG">d</div><div class="fountainTextG_8 fountainTextG">o</div></div>';
+    $(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
+</script>
+</body>
+</html>

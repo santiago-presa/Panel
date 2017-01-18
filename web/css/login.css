@@ -1,0 +1,27 @@
+body{
+    display: table-cell;
+    vertical-align: middle;
+}
+html, body {
+     height: 100%;
+ }
+body {
+    background-color: #EE6E73;
+    margin: 0;
+}
+html {
+    display: table;
+    margin: auto;
+}
+.margin-bottom{
+    margin-bottom: 20px;
+}
+i{
+    margin-top: 10px;
+}
+.input-field{
+    margin-top: 3rem;
+}
+.input-field label {
+    top: 0.3rem;
+}
