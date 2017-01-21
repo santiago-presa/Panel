@@ -15,7 +15,7 @@ security:
     access_control:
         # require ROLE_ADMIN for /admin*
         - { path: ^/login*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, roles: ROLE_ADMIN }
         - { path: ^/, roles: IS_AUTHENTICATED_REMEMBERED }
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs

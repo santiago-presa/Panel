@@ -84,6 +84,65 @@ class LoteriaController extends Controller
          );
     }
     /**
+     * @Route("/consultarCombinacion", name="consultarCombinacion")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function consultarCombinacion(Request $request)
+    {
+        $numeroLoteria=new NumeroLoteria();
+        $form = $this->createFormBuilder($numeroLoteria)
+            ->add('numero1',IntegerType::class)
+            ->add('numero2',IntegerType::class)
+            ->add('numero3',IntegerType::class)
+            ->add('numero4',IntegerType::class)
+            ->add('numero5',IntegerType::class)
+            ->add('estrella1',IntegerType::class)
+            ->add('estrella2',IntegerType::class)
+            ->getForm();
+        $form->handleRequest($request);
+        $repository = $this->getDoctrine()->getRepository('AppBundle:NumeroLoteria');
+        if ($form->isSubmitted() && $form->isValid()) {
+            // $form->getData() holds the submitted values
+            // but, the original `$task` variable has also been updated
+            $numeroLoteria = $form->getData();
+
+            // ... perform some action, such as saving the task to the database
+            // for example, if Task is a Doctrine entity, save it!
+            $em = $this->getDoctrine()->getManager();
+            $queryConsulta=$repository->createQueryBuilder('NL')
+                ->where("NL.numero1 = ?1 or NL.numero2 = ?1 or NL.numero3 = ?1 or NL.numero4 = ?1 or NL.numero5 = ?1")
+                ->andWhere("NL.numero1 = ?2 or NL.numero2 = ?2 or NL.numero3 = ?2 or NL.numero4 = ?2 or NL.numero5 = ?2")
+                ->andWhere("NL.numero1 = ?3 or NL.numero2 = ?3 or NL.numero3 = ?3 or NL.numero4 = ?3 or NL.numero5 = ?3")
+                ->andWhere("NL.numero1 = ?4 or NL.numero2 = ?4 or NL.numero3 = ?4 or NL.numero4 = ?4 or NL.numero5 = ?4")
+                ->andWhere("NL.numero1 = ?5 or NL.numero2 = ?5 or NL.numero3 = ?5 or NL.numero4 = ?5 or NL.numero5 = ?5")
+                ->andWhere("NL.numero1 = ?6 or NL.numero2 = ?6 or NL.numero3 = ?6 or NL.numero4 = ?6 or NL.numero5 = ?6")
+                ->andWhere("NL.numero1 = ?7 or NL.numero2 = ?7 or NL.numero3 = ?7 or NL.numero4 = ?7 or NL.numero5 = ?7")
+                ->setParameter(1, $numeroLoteria->getNumero1())
+                ->setParameter(2, $numeroLoteria->getNumero2())
+                ->setParameter(3, $numeroLoteria->getNumero3())
+                ->setParameter(4, $numeroLoteria->getNumero4())
+                ->setParameter(5, $numeroLoteria->getNumero5())
+                ->setParameter(6, $numeroLoteria->getEstrella1())
+                ->setParameter(7, $numeroLoteria->getEstrella2())
+                ->setMaxResults(1)
+                /*                 ->setParameter('consulta',array('NL.numero1','NL.numero2','NL.numero3','NL.numero4','Nl.numero5'))*/
+                ->getQuery();
+
+            $combinacionExiste=$queryConsulta->getOneOrNullResult();
+            $resultReturn=$this->json('ok');
+                $em->persist($numeroLoteria);
+                $combinacion=$repository->find($combinacionExiste->getNumero1());
+                $combinacion->setNumVeces($combinacion->getNumVeces()+1);
+                $resultReturn=$this->json("La combinacion coincide con la combinacion: ".$combinacion->print());
+
+            return $resultReturn;
+        }
+
+        return $this->json('error');
+
+    }
+    /**
      * @Route("/refrescarResultados", name="refrescarResultados")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response

@@ -5,6 +5,13 @@
     top: inherit;
     width: inherit;
 }
+.side-nav ul > li a {
+    background-color: transparent;
+    border: none;
+    line-height: inherit;
+    height: inherit;
+    padding: 0 16px;
+}
 .inLine-button{
     line-height: 70px;
 }

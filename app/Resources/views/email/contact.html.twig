@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col s12">
+            <h5 class="center-align">Contacto</h5>
+        </div>
+
+        {{ form_start(form,{'attr':{'id': 'contactar'}}) }}
+        <div class="input-field col s6">
+            {{ form_widget(form.asunto, {'attr': {'length': '250','maxLength': '250'}}) }}
+            {{ form_label(form.asunto, '',{'label_attr' : {'data-error' : 'Max 250', 'data-success': ''}}) }}
+            {{ form_errors(form.asunto) }}
+        </div>
+
+        <div class="input-field col s12">
+            {{ form_widget(form.descripcion, {'attr':{'length': '5000','class':'materialize-textarea'} }) }}
+            {{ form_label(form.descripcion) }}
+            {{ form_errors(form.descripcion) }}
+        </div>
+        <div class="col s2 inLine-button">
+            <button class="btn waves-effect waves-light" type="submit" name="action"><span class="hide-on-med-and-down">{{ 'EnviarSugerencia'|trans }}</span>
+                <i class="material-icons right">email</i>
+            </button>
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}>
+   <script>
+       $('#contactar').on('submit',function (e) {
+           e.preventDefault();
+           var succes = function () {
+                   $('#error').addClass('hide').html('');
+                   Materialize.toast('{{ 'Se ha enviado el correo correctamente'|trans }}', 4000, 'card-panel teal accent-3');
+                   $("#actualizar-lista").trigger('click');
+
+           };
+           var error = function (err) {
+               Materialize.toast('{{ 'ErrorAnadir'|trans }}', 4000,'card-panel deep-orange accent-3');
+               $('#error').html(err.responseText).removeClass('hide');
+           };
+           //noinspection JSUnresolvedFunction
+           $.ajax({
+               type: "POST",
+               url: $(this).attr('action'),
+               data: $(this).serialize(),
+               success: succes,
+               error: error
+           });
+       })
+   </script>
+
+
+{% endblock %}

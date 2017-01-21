@@ -53,6 +53,9 @@
                                     </ul>
                                 </div>
                             </li>
+                            <li>
+                                <a class="{% if 'Email' in app.request.attributes.get("_controller") %} active {% endif %}" href="{{ path('contact') }}">Contactar</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
