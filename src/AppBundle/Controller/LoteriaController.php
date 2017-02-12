@@ -131,11 +131,11 @@ class LoteriaController extends Controller
 
             $combinacionExiste=$queryConsulta->getOneOrNullResult();
             $resultReturn=$this->json('ok');
-                $em->persist($numeroLoteria);
-                $combinacion=$repository->find($combinacionExiste->getNumero1());
-                $combinacion->setNumVeces($combinacion->getNumVeces()+1);
-                $resultReturn=$this->json("La combinacion coincide con la combinacion: ".$combinacion->print());
-
+            if($combinacionExiste!=null) {
+                $resultReturn = $this->json("La combinacion coincide con la combinacion: " . $combinacionExiste->print());
+            }else{
+                $resultReturn = $this->json("La combinacion " . $numeroLoteria->print() . " no coincide con ninguna que exista en la bd");
+            }
             return $resultReturn;
         }
 
@@ -372,6 +372,7 @@ class LoteriaController extends Controller
         }
         return $resultados;
     }
+
     /**
      * @Route("/eliminarCombinacion", name="eliminarCombinacion")
      * @param Request $request
